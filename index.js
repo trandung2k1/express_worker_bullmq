@@ -1,9 +1,20 @@
 const express = require('express');
 const { Worker } = require('worker_threads');
 const { Queue } = require('bullmq');
+const { createBullBoard } = require('@bull-board/api');
+const { BullMQAdapter } = require('@bull-board/api/bullMQAdapter');
+const { ExpressAdapter } = require('@bull-board/express');
 const myQueue = new Queue('myQueueName');
 const app = express();
-const port = 7000;
+const port = 4000;
+
+const serverAdapter = new ExpressAdapter();
+serverAdapter.setBasePath('/admin/queues');
+
+const { addQueue, removeQueue, setQueues, replaceQueues } = createBullBoard({
+    queues: [new BullMQAdapter(myQueue)],
+    serverAdapter: serverAdapter,
+});
 
 app.use(express.json());
 
@@ -26,6 +37,8 @@ app.get('/addJob', async (req, res) => {
     });
     res.send('Job added to queue.');
 });
+app.use('/admin/queues', serverAdapter.getRouter());
+
 app.listen(port, function () {
     console.log(`App listening on http://localhost:${port}`);
 });
