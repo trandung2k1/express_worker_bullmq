@@ -10,13 +10,13 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "@bull-board/api": "^5.15.3",
-        "@bull-board/express": "^5.15.3",
-        "bullmq": "^5.4.5",
-        "express": "^4.19.1",
-        "redis": "^4.6.13"
+        "@bull-board/api": "^5.21.3",
+        "@bull-board/express": "^5.21.3",
+        "bullmq": "^5.12.3",
+        "express": "^4.19.2",
+        "redis": "^4.7.0"
     },
     "devDependencies": {
-        "nodemon": "^3.1.0"
+        "nodemon": "^3.1.4"
     }
 }
